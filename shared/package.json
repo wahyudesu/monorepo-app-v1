@@ -3,19 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "lint": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.5"
+    ".": "./src/index.ts"
   }
 }
