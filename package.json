@@ -1,0 +1,16 @@
+{
+  "name": "monorepo-root",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter server dev\"",
+    "dev:web": "pnpm --filter web dev",
+    "dev:server": "pnpm --filter server dev",
+    "build": "pnpm --filter shared build && pnpm --filter web build && pnpm --filter server build",
+    "lint": "pnpm -r lint",
+    "clean": "rm -rf node_modules web/node_modules server/node_modules shared/node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.2"
+  }
+}
