@@ -20,29 +20,49 @@ import { ChartSkeleton } from "@/components/loading";
 import { SummaryCard } from "./components/SummaryCard";
 
 // Lazy load heavy tab components
-const OverviewTab = dynamic(() => import("./components/OverviewTab").then(mod => ({ default: mod.OverviewTab })), {
-  loading: () => <ChartSkeleton />,
-  ssr: true
-});
+const OverviewTab = dynamic(
+  () =>
+    import("./components/OverviewTab").then((mod) => ({
+      default: mod.OverviewTab,
+    })),
+  {
+    loading: () => <ChartSkeleton />,
+    ssr: true,
+  },
+);
 
-const PlatformsTab = dynamic(() => import("./components/PlatformsTab").then(mod => ({ default: mod.PlatformsTab })), {
-  loading: () => <div className="h-64 animate-pulse bg-muted/20 rounded-lg" />,
-  ssr: true
-});
+const PlatformsTab = dynamic(
+  () =>
+    import("./components/PlatformsTab").then((mod) => ({
+      default: mod.PlatformsTab,
+    })),
+  {
+    loading: () => (
+      <div className="h-64 animate-pulse bg-muted/20 rounded-lg" />
+    ),
+    ssr: true,
+  },
+);
 
-const PublishedPostsTab = dynamic(() => import("./components/PublishedPostsTab").then(mod => ({ default: mod.PublishedPostsTab })), {
-  loading: () => (
-    <div className="space-y-4 animate-pulse">
-      <div className="h-6 w-40 bg-muted rounded" />
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-48 bg-muted/20 rounded-lg" />
-        ))}
+const PublishedPostsTab = dynamic(
+  () =>
+    import("./components/PublishedPostsTab").then((mod) => ({
+      default: mod.PublishedPostsTab,
+    })),
+  {
+    loading: () => (
+      <div className="space-y-4 animate-pulse">
+        <div className="h-6 w-40 bg-muted rounded" />
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="h-48 bg-muted/20 rounded-lg" />
+          ))}
+        </div>
       </div>
-    </div>
-  ),
-  ssr: true
-});
+    ),
+    ssr: true,
+  },
+);
 
 type TimeRange = "7d" | "30d" | "90d";
 
@@ -77,17 +97,26 @@ export default function AnalyticsPage() {
         <SummaryCard
           title="Total Followers"
           value={brandPerformance.totalFollowers.toLocaleString()}
-          trend={{ value: brandPerformance.followersGrowth + "%", direction: "up" }}
+          trend={{
+            value: brandPerformance.followersGrowth + "%",
+            direction: "up",
+          }}
         />
         <SummaryCard
           title="Total Impressions"
           value={brandPerformance.totalImpressions.toLocaleString()}
-          trend={{ value: brandPerformance.impressionsGrowth + "%", direction: "up" }}
+          trend={{
+            value: brandPerformance.impressionsGrowth + "%",
+            direction: "up",
+          }}
         />
         <SummaryCard
           title="Engagement Rate"
           value={brandPerformance.avgEngagementRate + "%"}
-          trend={{ value: brandPerformance.engagementGrowth + "%", direction: "up" }}
+          trend={{
+            value: brandPerformance.engagementGrowth + "%",
+            direction: "up",
+          }}
         />
         <SummaryCard
           title="Viral Posts"
@@ -97,7 +126,10 @@ export default function AnalyticsPage() {
         <SummaryCard
           title="Avg. Likes/Post"
           value={brandPerformance.avgLikesPerPost.toLocaleString()}
-          trend={{ value: brandPerformance.avgLikesGrowth + "%", direction: "up" }}
+          trend={{
+            value: brandPerformance.avgLikesGrowth + "%",
+            direction: "up",
+          }}
         />
       </div>
 
@@ -105,10 +137,16 @@ export default function AnalyticsPage() {
       <Tabs defaultValue="overview" className="space-y-4">
         <div className="flex items-center justify-between">
           <TabsList className="bg-muted/50 p-1 rounded-lg">
-            <TabsTrigger value="overview" className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="overview"
+              className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm"
+            >
               Overview
             </TabsTrigger>
-            <TabsTrigger value="platforms" className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="platforms"
+              className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm"
+            >
               Details
             </TabsTrigger>
           </TabsList>
@@ -129,7 +167,7 @@ export default function AnalyticsPage() {
                   "h-7 rounded-md px-3 text-xs font-medium transition-all",
                   timeRange === range.value
                     ? "bg-background shadow-sm text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {range.label}
@@ -145,7 +183,11 @@ export default function AnalyticsPage() {
         </TabsContent>
 
         <TabsContent value="platforms">
-          <Suspense fallback={<div className="h-64 animate-pulse bg-muted/20 rounded-lg" />}>
+          <Suspense
+            fallback={
+              <div className="h-64 animate-pulse bg-muted/20 rounded-lg" />
+            }
+          >
             <PlatformsTab />
           </Suspense>
         </TabsContent>
@@ -164,16 +206,18 @@ export default function AnalyticsPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <Suspense fallback={
-            <div className="space-y-4 animate-pulse">
-              <div className="h-6 w-40 bg-muted rounded" />
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-48 bg-muted/20 rounded-lg" />
-                ))}
+          <Suspense
+            fallback={
+              <div className="space-y-4 animate-pulse">
+                <div className="h-6 w-40 bg-muted rounded" />
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="h-48 bg-muted/20 rounded-lg" />
+                  ))}
+                </div>
               </div>
-            </div>
-          }>
+            }
+          >
             <PublishedPostsTab />
           </Suspense>
         </CardContent>
