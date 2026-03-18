@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { Instagram, Twitter, Youtube, Music, MessageSquare, Star } from "lucide-react";
 
 type Platform = "all" | "instagram" | "tiktok" | "twitter" | "youtube";
+type TypeFilter = "all" | "message" | "comment";
 
 interface ChatMessage {
   id: string;
@@ -30,6 +31,7 @@ interface ChatMessage {
 interface Conversation {
   id: string;
   platform: "instagram" | "tiktok" | "twitter" | "youtube";
+  type: "message" | "comment";
   sender: string;
   avatar: string;
   isOnline: boolean;
@@ -53,6 +55,7 @@ const mockConversations: Conversation[] = [
   {
     id: "1",
     platform: "instagram",
+    type: "comment",
     sender: "sarah_design",
     avatar: "https://i.pravatar.cc/150?u=sarah",
     isOnline: true,
@@ -73,6 +76,7 @@ const mockConversations: Conversation[] = [
   {
     id: "2",
     platform: "tiktok",
+    type: "comment",
     sender: "mike_creator",
     avatar: "https://i.pravatar.cc/150?u=mike",
     isOnline: false,
@@ -89,6 +93,7 @@ const mockConversations: Conversation[] = [
   {
     id: "3",
     platform: "twitter",
+    type: "message",
     sender: "tech_enthusiast",
     avatar: "https://i.pravatar.cc/150?u=tech",
     isOnline: true,
@@ -105,6 +110,7 @@ const mockConversations: Conversation[] = [
   {
     id: "4",
     platform: "youtube",
+    type: "comment",
     sender: "video_fan",
     avatar: "https://i.pravatar.cc/150?u=video",
     isOnline: false,
@@ -122,6 +128,7 @@ const mockConversations: Conversation[] = [
   {
     id: "5",
     platform: "instagram",
+    type: "message",
     sender: "brand_official",
     avatar: "https://i.pravatar.cc/150?u=brand",
     isOnline: false,
@@ -138,6 +145,7 @@ const mockConversations: Conversation[] = [
   {
     id: "6",
     platform: "tiktok",
+    type: "comment",
     sender: "dance_lover",
     avatar: "https://i.pravatar.cc/150?u=dance",
     isOnline: true,
@@ -156,6 +164,7 @@ const mockConversations: Conversation[] = [
 
 export function InboxContent() {
   const [platform, setPlatform] = useState<Platform>("all");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messageInput, setMessageInput] = useState("");
@@ -164,13 +173,14 @@ export function InboxContent() {
   const filteredConversations = useMemo(() => {
     return mockConversations.filter((conv) => {
       const matchesPlatform = platform === "all" || conv.platform === platform;
+      const matchesType = typeFilter === "all" || conv.type === typeFilter;
       const matchesSearch =
         searchQuery === "" ||
         conv.sender.toLowerCase().includes(searchQuery.toLowerCase()) ||
         conv.lastMessage.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesPlatform && matchesSearch;
+      return matchesPlatform && matchesType && matchesSearch;
     });
-  }, [platform, searchQuery]);
+  }, [platform, typeFilter, searchQuery]);
 
   const handleSendMessage = () => {
     if (!messageInput.trim() || !selectedConversation) return;
@@ -203,18 +213,32 @@ export function InboxContent() {
         </div>
 
         {/* Platform Filter - Select */}
-        <Select value={platform} onValueChange={(v) => setPlatform(v as Platform)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="All Platforms" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Platforms</SelectItem>
-            <SelectItem value="instagram">Instagram</SelectItem>
-            <SelectItem value="tiktok">TikTok</SelectItem>
-            <SelectItem value="twitter">Twitter</SelectItem>
-            <SelectItem value="youtube">YouTube</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex items-center gap-2">
+          <Select value={platform} onValueChange={(v) => setPlatform(v as Platform)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="All Platforms" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Platforms</SelectItem>
+              <SelectItem value="instagram">Instagram</SelectItem>
+              <SelectItem value="tiktok">TikTok</SelectItem>
+              <SelectItem value="twitter">Twitter</SelectItem>
+              <SelectItem value="youtube">YouTube</SelectItem>
+            </SelectContent>
+          </Select>
+
+          {/* Type Filter - Select */}
+          <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v as TypeFilter)}>
+            <SelectTrigger className="w-[140px]">
+              <SelectValue placeholder="All Types" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="message">Messages</SelectItem>
+              <SelectItem value="comment">Comments</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* CRM Layout */}
