@@ -7,11 +7,11 @@ export function AnalyticsSkeleton() {
         <div className="h-4 w-80 bg-muted/60 rounded" />
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="animate-pulse">
-            <div className="h-28 bg-muted/50 rounded-lg border border-border/50" />
+      {/* Summary Cards - Minimalis borderless design */}
+      <div className="grid grid-cols-5 gap-4 overflow-x-auto pb-2">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="animate-pulse min-w-[140px]">
+            <div className="h-28 bg-muted/50 rounded-lg" />
           </div>
         ))}
       </div>
