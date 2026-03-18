@@ -1,6 +1,10 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
+    "noEmit": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "plugins": [
       {
         "name": "next"
@@ -9,20 +13,31 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "shared": [
-        "../shared/src"
       ]
     },
-    "noEmit": true,
-    "incremental": true,
-    "jsx": "preserve"
+    "types": [
+      "./cloudflare-env.d.ts",
+      "node"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -5,11 +5,11 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis } from "recharts";
-import type { PostAnalyticsData, AnalyticsPlatform } from "@/data/mock";
+import type { PostAnalyticsData, AnalyticsPlatformConfig } from "@/data/mock";
 
 interface StackedBarChartProps {
   data: PostAnalyticsData[];
-  platforms: AnalyticsPlatform[];
+  platforms: AnalyticsPlatformConfig[];
 }
 
 function formatChartValue(value: number): string {
@@ -23,7 +23,7 @@ export function StackedBarChart({ data, platforms }: StackedBarChartProps) {
   const maxValue = useMemo(() => {
     return Math.max(
       ...data.map((d) =>
-        platforms.reduce((sum, p) => sum + (d[p.id] || 0), 0)
+        platforms.reduce((sum, p) => sum + ((d as unknown as Record<string, number>)[p.id] || 0), 0)
       )
     );
   }, [data, platforms]);

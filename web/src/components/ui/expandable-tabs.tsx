@@ -1,7 +1,5 @@
 import * as React from "react";
-import type { RefObject } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
@@ -58,8 +56,15 @@ export function ExpandableTabs({
   onChange,
   activeIndex,
 }: ExpandableTabsProps) {
-  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
-  const outsideClickRef = React.useRef<HTMLDivElement>(null);
+  // Auto-expand the active tab, but allow manual expansion of others
+  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(activeIndex ?? null);
+
+  // Auto-expand when activeIndex changes
+  React.useEffect(() => {
+    if (activeIndex !== undefined && activeIndex !== null) {
+      setExpandedIndex(activeIndex);
+    }
+  }, [activeIndex]);
 
   // A tab is selected if it's either expanded or active
   const isTabSelected = React.useCallback(
@@ -67,18 +72,10 @@ export function ExpandableTabs({
     [expandedIndex, activeIndex]
   );
 
-  useOnClickOutside(
-    outsideClickRef as unknown as RefObject<HTMLElement>,
-    () => {
-      setExpandedIndex(null);
-    }
-  );
-
   const handleSelect = (index: number) => {
-    // Toggle the expanded state
-    setExpandedIndex(expandedIndex === index ? null : index);
-    // Notify parent of the selection
+    // Notify parent first to trigger navigation
     onChange?.(index);
+    // Text will expand after activeIndex changes via useEffect
   };
 
   const Separator = () => (
@@ -87,7 +84,6 @@ export function ExpandableTabs({
 
   return (
     <div
-      ref={outsideClickRef}
       className={cn(
         "flex flex-wrap items-center gap-2 rounded-2xl border bg-background p-1 shadow-sm",
         className

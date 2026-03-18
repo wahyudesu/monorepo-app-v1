@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StackedBarChart } from "./StackedBarChart";
-import type { PostAnalyticsData, AnalyticsPlatform } from "@/data/mock";
+import type { PostAnalyticsData, AnalyticsPlatformConfig } from "@/data/mock";
 
 interface OverviewTabProps {
   data: PostAnalyticsData[];
-  platforms: AnalyticsPlatform[];
+  platforms: AnalyticsPlatformConfig[];
 }
 
 export function OverviewTab({ data, platforms }: OverviewTabProps) {
