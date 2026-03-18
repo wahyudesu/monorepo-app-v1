@@ -73,7 +73,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-5 gap-4 overflow-x-auto pb-2">
         <SummaryCard
           title="Total Followers"
           value={brandPerformance.totalFollowers.toLocaleString()}
@@ -97,6 +97,12 @@ export default function AnalyticsPage() {
           value={brandPerformance.viralPosts}
           trend={{ value: brandPerformance.viralPostsGrowth, direction: "up" }}
           icon="🔥"
+        />
+        <SummaryCard
+          title="Avg. Likes/Post"
+          value={brandPerformance.avgLikesPerPost.toLocaleString()}
+          trend={{ value: brandPerformance.avgLikesGrowth + "%", direction: "up" }}
+          icon="❤️"
         />
       </div>
 

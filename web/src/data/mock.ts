@@ -253,6 +253,8 @@ export interface BrandPerformance {
   engagementGrowth: string;
   viralPosts: number;
   viralPostsGrowth: string;
+  avgLikesPerPost: number;
+  avgLikesGrowth: number;
 }
 
 export const brandPerformance: BrandPerformance = {
@@ -264,6 +266,8 @@ export const brandPerformance: BrandPerformance = {
   engagementGrowth: "+0.6",
   viralPosts: 24,
   viralPostsGrowth: "+8",
+  avgLikesPerPost: 1245,
+  avgLikesGrowth: 18,
 };
 
 // Helper function to generate date range
