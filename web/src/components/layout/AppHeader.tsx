@@ -3,7 +3,7 @@
 import { ChevronDown, User, LogOut, Settings, UserCircle } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,17 +35,17 @@ export function AppHeader() {
     <header className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-5 py-3">
       {/* Workspace Selector */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="gap-2 px-2 font-display text-base font-semibold hover:bg-muted/50"
-          >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-              A
-            </div>
-            Acme Corp
-            <ChevronDown className="h-4 w-4 text-muted-foreground" />
-          </Button>
+        <DropdownMenuTrigger
+          className={buttonVariants({
+            variant: "ghost",
+            className: "gap-2 px-2 font-display text-base font-semibold hover:bg-muted/50",
+          })}
+        >
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
+            A
+          </div>
+          Acme Corp
+          <ChevronDown className="h-4 w-4 text-muted-foreground" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-56">
           <DropdownMenuItem>
@@ -67,19 +67,19 @@ export function AppHeader() {
 
       {/* Account */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full border border-border/60 bg-card/90 shadow-sm backdrop-blur-xl"
-          >
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="https://i.pravatar.cc/150?u=admin" />
-              <AvatarFallback>
-                <User className="h-4 w-4" />
-              </AvatarFallback>
-            </Avatar>
-          </Button>
+        <DropdownMenuTrigger
+          className={buttonVariants({
+            variant: "ghost",
+            size: "icon",
+            className: "rounded-full border border-border/60 bg-card/90 shadow-sm backdrop-blur-xl",
+          })}
+        >
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="https://i.pravatar.cc/150?u=admin" />
+            <AvatarFallback>
+              <User className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-72 p-0" sideOffset={8}>
           {/* Profile Section */}

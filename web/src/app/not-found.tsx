@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileX } from "lucide-react";
 
@@ -19,9 +21,9 @@ export default function NotFound() {
           <p className="text-sm text-muted-foreground">
             The page you are looking for does not exist or has been moved.
           </p>
-          <Button asChild>
-            <Link href="/">Go home</Link>
-          </Button>
+          <Link href="/" className={buttonVariants()}>
+            Go home
+          </Link>
         </CardContent>
       </Card>
     </div>
