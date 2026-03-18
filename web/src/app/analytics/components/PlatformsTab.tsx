@@ -6,7 +6,7 @@ import { platformStats, analyticsPlatforms } from "@/data/mock";
 
 export function PlatformsTab() {
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-2 gap-4">
       {platformStats.map((stats) => {
         const platform = analyticsPlatforms.find((p) => p.id === stats.platform);
         if (!platform) return null;

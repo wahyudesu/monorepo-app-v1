@@ -24,7 +24,13 @@ import { publishedPosts, analyticsPlatforms } from "@/data/mock";
 const POSTS_PER_PAGE = 6;
 
 export function PublishedPostsTab() {
-  const [selectedPlatform, setSelectedPlatform] = useState<string>("all");
+  // Get unique platforms from posts
+  const availablePlatforms = useMemo(() => {
+    const platforms = new Set(publishedPosts.map((p) => p.platform));
+    return Array.from(platforms);
+  }, []);
+
+  const [selectedPlatform, setSelectedPlatform] = useState<string>(availablePlatforms[0] || "");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Sort posts: viral first, then by viral score
@@ -38,7 +44,6 @@ export function PublishedPostsTab() {
 
   // Filter posts by selected platform
   const filteredPosts = useMemo(() => {
-    if (selectedPlatform === "all") return sortedPosts;
     return sortedPosts.filter((p) => p.platform === selectedPlatform);
   }, [sortedPosts, selectedPlatform]);
 
@@ -51,12 +56,6 @@ export function PublishedPostsTab() {
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-
-  // Get unique platforms from posts
-  const availablePlatforms = useMemo(() => {
-    const platforms = new Set(publishedPosts.map((p) => p.platform));
-    return Array.from(platforms);
-  }, []);
 
   const formatNumber = (num: number): string => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
@@ -124,10 +123,9 @@ export function PublishedPostsTab() {
         <span className="text-xs font-medium text-muted-foreground">Filter by platform:</span>
         <Select value={selectedPlatform} onValueChange={setSelectedPlatform}>
           <SelectTrigger className="w-[180px] h-8">
-            <SelectValue placeholder="All Platforms" />
+            <SelectValue placeholder="Select platform" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Platforms</SelectItem>
             {availablePlatforms.map((platformId) => {
               const platform = analyticsPlatforms.find((p) => p.id === platformId);
               return (

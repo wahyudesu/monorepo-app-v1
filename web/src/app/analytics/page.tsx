@@ -78,31 +78,26 @@ export default function AnalyticsPage() {
           title="Total Followers"
           value={brandPerformance.totalFollowers.toLocaleString()}
           trend={{ value: brandPerformance.followersGrowth + "%", direction: "up" }}
-          icon="👥"
         />
         <SummaryCard
           title="Total Impressions"
           value={brandPerformance.totalImpressions.toLocaleString()}
           trend={{ value: brandPerformance.impressionsGrowth + "%", direction: "up" }}
-          icon="👁️"
         />
         <SummaryCard
           title="Engagement Rate"
           value={brandPerformance.avgEngagementRate + "%"}
           trend={{ value: brandPerformance.engagementGrowth + "%", direction: "up" }}
-          icon="💬"
         />
         <SummaryCard
           title="Viral Posts"
           value={brandPerformance.viralPosts}
           trend={{ value: brandPerformance.viralPostsGrowth, direction: "up" }}
-          icon="🔥"
         />
         <SummaryCard
           title="Avg. Likes/Post"
           value={brandPerformance.avgLikesPerPost.toLocaleString()}
           trend={{ value: brandPerformance.avgLikesGrowth + "%", direction: "up" }}
-          icon="❤️"
         />
       </div>
 

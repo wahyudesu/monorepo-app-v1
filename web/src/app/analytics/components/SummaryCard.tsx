@@ -16,7 +16,7 @@ export function SummaryCard({ title, value, trend, icon }: SummaryCardProps) {
   };
 
   return (
-    <div className="flex flex-col items-center text-center space-y-2 min-w-[100px]">
+    <div className="flex flex-col items-start text-left space-y-2 min-w-[100px]">
       {/* Title + small icon */}
       <div className="flex items-center gap-1.5">
         {icon && <span className="text-sm">{icon}</span>}
